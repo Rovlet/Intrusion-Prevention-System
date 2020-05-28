@@ -1,5 +1,5 @@
 import subprocess
-import time
+from time import time
 
 
 class Solution:
@@ -10,10 +10,11 @@ class Solution:
         # p = subprocess.Popen(["iptables", "-t", "filter", "-A", "INPUT", "-s", "$".format(source_ip), "-j", "REJECT"],
         #                      stdout=subprocess.PIPE)
         # output, err = p.communicate()
-        print("Address {} blocked".format(source_ip))
+        #print("Address {} blocked".format(source_ip))
+        pass
 
     def block_after_count(self, source_ip):
-        now = time.time()
+        now = time()
         self.att_count = [[a, b, c] for [a, b, c] in self.att_count if now-b < 60]  #Deleting old data
         for sublist in self.att_count:
             if sublist[0] == source_ip:
