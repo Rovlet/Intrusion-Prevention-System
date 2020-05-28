@@ -8,8 +8,8 @@ from email.mime.multipart import MIMEMultipart
 class SendEmail:
     def __init__(self):
         self.port = 465
-        self.ips_email_address = "pythonips@gmail.com"
-        self.admin_email = "oskalke@gmail.com"
+        self.ips_email_address = ""
+        self.admin_email = ""
 
     def make_message(self, list_of_events):
         password = input("Type your password and press enter:")
