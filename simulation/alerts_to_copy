@@ -1,0 +1,24 @@
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:20:53.986727  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:21:01.302938  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:21:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:20:53.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.0.6:57490 -> 192.168.0.2:22
+01/20-18:25:51.303778  [**] [1:1228:7] SCAN nmap XMAS [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.2.6:44755 -> 192.168.0.2:32775
+01/20-18:25:51.303814  [**] [1:1228:7] SCAN nmap XMAS [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.2.6:44755 -> 192.168.0.2:7100
+01/20-18:25:51.303869  [**] [1:1228:7] SCAN nmap XMAS [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.2.6:44755 -> 192.168.0.2:417
+01/20-18:25:51.303909  [**] [1:1228:7] SCAN nmap XMAS [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.2.6:44755 -> 192.168.0.2:79
+01/20-18:25:51.304009  [**] [1:1228:7] SCAN nmap XMAS [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.2.6:44755 -> 192.168.0.2:43
+01/20-18:25:51.291190  [**] [1:1421:11] SNMP AgentX/tcp request [**] [Classification: Attempted Information Leak] [Priority: 2] {TCP} 192.168.0.8:44755 -> 192.168.0.2:705
+01/20-18:25:50.363158  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.2.7:54016 -> 192.168.0.2:22
+01/20-18:25:50.991798  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.2.7:54018 -> 192.168.0.2:22
+01/20-14:10:43.323717  [**] [1:2008015:9] ET MALWARE User-Agent (Win95) [**] [Classification: A Network Trojan was detected] [Priority: 1] {TCP} 192.168.100.4:28692 -> 192.168.0.2:80
+01/20-10:21:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:53.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:21:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:53.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22
+01/20-10:20:49.996057  [**] [1:1000001:1] Possible SSH brute forcing! [**] [Priority: 0] {TCP} 192.168.4.61:57490 -> 192.168.0.2:22

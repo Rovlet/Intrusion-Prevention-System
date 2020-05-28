@@ -27,6 +27,7 @@ class TextOperations:
         return 0
 
     def find_snort_alert(self, line):
+        print(line)
         m = re.match(r"([0-9:./-]+)\s+.*?\[[0-9]\:([0-9]+)\:+.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})\s+"
                      r"->\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})", line)
         sid = int(m.group(2))
