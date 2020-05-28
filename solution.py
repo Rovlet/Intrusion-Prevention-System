@@ -10,8 +10,8 @@ class Solution:
         # p = subprocess.Popen(["iptables", "-t", "filter", "-A", "INPUT", "-s", "$".format(source_ip), "-j", "REJECT"],
         #                      stdout=subprocess.PIPE)
         # output, err = p.communicate()
-        #print("Address {} blocked".format(source_ip))
-        pass
+        print("Address {} blocked".format(source_ip))
+        return source_ip
 
     def block_after_count(self, source_ip):
         now = time()
@@ -19,8 +19,7 @@ class Solution:
         for sublist in self.att_count:
             if sublist[0] == source_ip:
                 if sublist[2] > 4:
-                    self.block_address(source_ip)
-                    return source_ip
+                    return self.block_address(source_ip)
                 else:
                     sublist[2] += sublist[2]
                     return 0
