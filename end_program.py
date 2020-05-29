@@ -2,6 +2,8 @@ import smtplib
 import ssl
 import os.path
 import subprocess
+import re 
+import time
 from datetime import date
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -12,18 +14,31 @@ class EndProgram:
         self.port = 465
         self.ips_email_address = ""
         self.admin_email = ""
-        self.iptables_file = 'iptables.rules'
+        self.iptables_file = 'iptables'
+        self.two_weeks = 60
 
     def check_firewall(self):
         subprocess.check_output('iptables-save > iptables', shell=True)
         if os.path.exists(self.iptables_file):
-            lines_seen = set()
-            outfile = open('iptables-copy.rules', "w+")
+            lines_seen = []
+            outfile = open('iptables-copy', "w+")
             for line in open(self.iptables_file, "r"):
                 if line not in lines_seen:
-                    outfile.write(line)
-                    lines_seen.add(line)
+                    if "comment" in line:
+                       m = re.findall(r"\"(1[1-9].*?)\"", line)
+                       if time.time() - float(m[0]) < self.two_weeks:
+                          outfile.write(line)
+                          lines_seen.append(line)
+                    else:
+                          outfile.write(line)
+                          lines_seen.append(line)
+                else:
+                    if "COMMIT" in line:
+                        lines_seen = []
+                        outfile.write(line)
+                        lines_seen.append(line)
             outfile.close()
+        subprocess.check_output('iptables-restore < iptables-copy', shell=True)
 
     def make_email_message(self, list_of_events):
         password = input("Type your password and press enter:")
@@ -63,8 +78,8 @@ class EndProgram:
         part2 = MIMEText(html, "html")
         message.attach(part1)
         message.attach(part2)
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        make_context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=make_context) as server:
             server.login(self.ips_email_address, password)
             server.sendmail(
                 self.ips_email_address, self.admin_email, message.as_string()

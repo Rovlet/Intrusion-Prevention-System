@@ -12,7 +12,7 @@ class MyEventHandler(FileSystemEventHandler):
         self.observer = Observer()
         self.text_operations = text_operations.TextOperations(self.file_name)
         self.solution = solution.Solution()
-        self.end_program = send_email.SendEmail()
+        self.end_program = end_program.EndProgram()
         self.today_events = []
 
     def on_modified(self, event):
@@ -35,6 +35,6 @@ class MyEventHandler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    alert_file = 'alerts'
+    alert_file = 'alert'
     handler = MyEventHandler('.', alert_file)
     handler.observe()

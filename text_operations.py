@@ -27,9 +27,7 @@ class TextOperations:
         return 0
 
     def find_snort_alert(self, line):
-        print(line)
-        m = re.match(r"([0-9:./-]+)\s+.*?\[[0-9]\:([0-9]+)\:+.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})\s+"
-                     r"->\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,5})", line)
+        m = re.match(r"([0-9:./-]+)\s+.*?\[[0-9]\:([0-9]+)\:+.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})+.*?\s+->\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", line)
         sid = int(m.group(2))
         if sid > self.high_sid_alert_number:
             operation = self.solution.block_after_count(m.group(3))

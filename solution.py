@@ -10,7 +10,7 @@ class Solution:
     def block_address(self, source_ip):
         if source_ip in self.blocked_addresses:
             return 0
-        p = subprocess.Popen(["iptables", "-t", "filter", "-A", "INPUT", "-s", "$".format(source_ip), "-j", "REJECT"],
+        p = subprocess.Popen(["iptables", "-t", "filter", "-A", "OUTPUT", "-d", "{}".format(source_ip), "-m", "comment", "--comment", "{}".format(time()), "-j", "DROP"],
                               stdout=subprocess.PIPE)
         output, err = p.communicate()
         print("Address {} blocked".format(source_ip))
