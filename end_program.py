@@ -1,17 +1,31 @@
 import smtplib
 import ssl
+import os.path
+import subprocess
 from datetime import date
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-class SendEmail:
+class EndProgram:
     def __init__(self):
         self.port = 465
         self.ips_email_address = ""
         self.admin_email = ""
+        self.iptables_file = 'iptables.rules'
 
-    def make_message(self, list_of_events):
+    def check_firewall(self):
+        subprocess.check_output('iptables-save > iptables', shell=True)
+        if os.path.exists(self.iptables_file):
+            lines_seen = set()
+            outfile = open('iptables-copy.rules', "w+")
+            for line in open(self.iptables_file, "r"):
+                if line not in lines_seen:
+                    outfile.write(line)
+                    lines_seen.add(line)
+            outfile.close()
+
+    def make_email_message(self, list_of_events):
         password = input("Type your password and press enter:")
         message = MIMEMultipart("alternative")
         message["Subject"] = "IPS raport {}".format(date.today().strftime('%d_%m_%y'))

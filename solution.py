@@ -5,16 +5,16 @@ from time import time
 class Solution:
     def __init__(self):
         self.att_count = []
-        self.last_ip = '1.1.1.1'
+        self.blocked_addresses = []
 
     def block_address(self, source_ip):
-        if source_ip == self.last_ip:
+        if source_ip in self.blocked_addresses:
             return 0
         p = subprocess.Popen(["iptables", "-t", "filter", "-A", "INPUT", "-s", "$".format(source_ip), "-j", "REJECT"],
                               stdout=subprocess.PIPE)
         output, err = p.communicate()
         print("Address {} blocked".format(source_ip))
-        self.last_ip = source_ip
+        self.blocked_addresses.append(source_ip)
         return source_ip
 
     def block_after_count(self, source_ip):

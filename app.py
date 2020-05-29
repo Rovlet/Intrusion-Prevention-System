@@ -2,7 +2,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import text_operations
 import solution
-import send_email
+import end_program
 
 
 class MyEventHandler(FileSystemEventHandler):
@@ -12,7 +12,7 @@ class MyEventHandler(FileSystemEventHandler):
         self.observer = Observer()
         self.text_operations = text_operations.TextOperations(self.file_name)
         self.solution = solution.Solution()
-        self.email = send_email.SendEmail()
+        self.end_program = send_email.SendEmail()
         self.today_events = []
 
     def on_modified(self, event):
@@ -29,7 +29,8 @@ class MyEventHandler(FileSystemEventHandler):
                 self.observer.join(1)
         except KeyboardInterrupt:
             self.observer.stop()
-            self.email.make_message(self.today_events)
+            self.end_program.check_firewall()
+            self.end_program.make_email_message(self.today_events)
             print('Bye!')
 
 
