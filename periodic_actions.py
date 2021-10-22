@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-class EndProgram:
+class PeriodicActions:
     def __init__(self):
         self.port = 465
         self.ips_email_address = ""
@@ -17,7 +17,7 @@ class EndProgram:
         self.iptables_file = 'iptables'
         self.two_weeks = 60
 
-    def check_firewall(self):
+    def delete_old_rules_from_firewall(self):
         subprocess.check_output('iptables-save > iptables', shell=True)
         if os.path.exists(self.iptables_file):
             lines_seen = []
@@ -40,14 +40,13 @@ class EndProgram:
             outfile.close()
         subprocess.check_output('iptables-restore < iptables-copy', shell=True)
 
-    def make_email_message(self, list_of_events):
+    def send_email_to_admin(self, list_of_events):
         password = input("Type your password and press enter:")
         message = MIMEMultipart("alternative")
         message["Subject"] = "IPS raport {}".format(date.today().strftime('%d_%m_%y'))
         message["From"] = self.ips_email_address
         message["To"] = self.admin_email
         events = "\n".join(list_of_events)
-        # plain-text
         text = """\
         Hi! 
         List of today's events:

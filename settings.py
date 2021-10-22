@@ -1,0 +1,1 @@
+ALERT_FILE = 'alert'
