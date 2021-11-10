@@ -4,34 +4,64 @@ Intrusion prevention system based on snort alerts.
 
 ## How does it work?
 
-Our aplication is still under development. For now it can read snort alerts in the prepared file and is able to make definied action based on snort alert's sid number. 
-Definied actions are:
+Our application is still under development. For now, it can read snort alerts in the prepared file and is able to make defined actions based on snort alert's sid number. 
+Defined actions are:
 
-- block source IP address
-- block source IP address after 5 alerts within 2 minutes
+- block the source IP address
+- block the source IP address after 5 alerts within 2 minutes
 - do nothing with the alert
 
-When the app is being closed, it sends email to admin with informations about every blocked IP during the day, it also check iptables file for duplicates and too old rules.
+When the app is being closed, it sends an email to the admin with information about every blocked IP during the day, it also checks iptables file for duplicates and too old rules.
 
 ### TODO
 
-- [x] Check if app is working well using snort simulation script.
-- [x] Check if app is working well using virtual machines and generate real attacks.
+- [x] Check if the app is working well using the snort simulation script.
+- [x] Check if the app is working well using virtual machines and generate real attacks.
 - [ ] Make errors handlers with exceptions.
 - [ ] Change snort output and app input to not use the same file.
 
 
 ### Prerequisites
 
-To run this program, you need linux, snort, iptables and python3 with watchdog module.
+To run this program, you need linux, snort, iptables, and python3 with watchdog module.
 
+1. Install all needed packages
+    ```
+    sudo apt-get install snort
+    sudo apt-get install python3
+    pip3 install watchdog
+    ```
+
+2. Configure snort to run on your interface and in your network. You can do this in the initialization scripts or by change settings.
+3. Change settings.py file:
+Path to snort/suricata file
 ```
-sudo apt-get install snort
-sudo apt-get install python3
-pip3 install watchdog
+    ALERT_FILE = ''
+```
+If you want to send an email to the admin with program results, you can set receiver and sender data here:
+```    
+    # Send email to
+    ADMIN_EMAIL = ''
+    
+    # Send email from
+    IPS_EMAIL = ''
+    IPS_EMAIL_PASSWORD = ''
+    
+    # Send email from this port
+    APPLICATION_PORT = 465
 ```
 
-
+You can specify the filename to store temporary iptables rules. This setting is necessary if you want to delete old rules automatically. 
+```
+    # File to store new rules
+    IPTABLES_FILE = 'iptables'
+```
+After you set this time, the app will check and delete old firewall rules after this time.
+```
+    # After this time, some periodic actions will occur
+    PERIODIC_ACTION_TIME = 60
+    
+```
 ## Team
 
 > Our Contributors
