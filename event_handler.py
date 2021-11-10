@@ -12,7 +12,7 @@ class EventHandler(FileSystemEventHandler):
         self.observer = Observer()
         self.text_operations = alerts.Alerts(self.file_name)
         self.solution = defense_machine.DefenseMachine()
-        self.end_program = periodic_actions.EndProgram()
+        self.periodic_actions = periodic_actions.PeriodicActions()
         self.today_events = []
 
     def on_modified(self, event):
@@ -29,5 +29,5 @@ class EventHandler(FileSystemEventHandler):
                 self.observer.join(1)
         except KeyboardInterrupt:
             self.observer.stop()
-            self.end_program.delete_old_rules_from_firewall()
-            self.end_program.send_email_to_admin(self.today_events)
+            self.periodic_actions.delete_old_rules_from_firewall()
+            self.periodic_actions.send_email_to_admin(self.today_events)
