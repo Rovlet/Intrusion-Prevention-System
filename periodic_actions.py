@@ -4,7 +4,9 @@ import os.path
 import subprocess
 import re
 import time
+from report import save_report
 from settings import *
+from datetime import datetime
 
 
 class PeriodicActions:
@@ -38,6 +40,19 @@ class PeriodicActions:
             outfile.close()
         subprocess.check_output('iptables-restore < iptables-copy', shell=True)
 
+    def add_report_as_attachment(self, message, list_of_events):
+        save_report(list_of_events)
+        now = datetime.now()
+        attachmentPath = 'Report of today\'s events %s.pdf' % (now.strftime("%d-%m-%Y"))
+        try:
+            with open(attachmentPath, "rb") as attachment:
+                p = MIMEApplication(attachment.read(), _subtype="pdf")
+                p.add_header('Content-Disposition', "attachment; filename= %s" % attachmentPath.split("\\")[-1])
+                message.attach(p)
+        except Exception as e:
+            print(str(e))
+        return message
+
     def send_email_to_admin(self, list_of_events):
         password = IPS_EMAIL_PASSWORD
         message = MIMEMultipart("alternative")
@@ -48,6 +63,9 @@ class PeriodicActions:
         plain_email = MIMEText(text_email.format(events), "plain")
         events = "<br>".join(list_of_events)
         email_with_html = MIMEText(html_email.format(events), "html")
+
+        message = add_report_as_attachment(message, list_of_events)
+
         message.attach(plain_email)
         message.attach(email_with_html)
         make_context = ssl.create_default_context()
