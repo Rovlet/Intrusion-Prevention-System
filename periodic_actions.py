@@ -4,9 +4,14 @@ import os.path
 import subprocess
 import re
 import time
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from email_content import text_email, html_email
 from report import save_report
 from settings import *
-from datetime import datetime
+from datetime import datetime, date
 
 
 class PeriodicActions:
@@ -18,6 +23,7 @@ class PeriodicActions:
         self.periodic_actions_time = PERIODIC_ACTION_TIME
 
     def delete_old_rules_from_firewall(self):
+        pass
         subprocess.check_output('iptables-save > iptables', shell=True)
         if os.path.exists(self.iptables_file):
             lines_seen = []
