@@ -23,7 +23,6 @@ class PeriodicActions:
         self.periodic_actions_time = PERIODIC_ACTION_TIME
 
     def delete_old_rules_from_firewall(self):
-        pass
         subprocess.check_output('iptables-save > iptables', shell=True)
         if os.path.exists(self.iptables_file):
             lines_seen = []
