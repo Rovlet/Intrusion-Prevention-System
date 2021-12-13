@@ -64,7 +64,7 @@ class PeriodicActions:
         events = "<br>".join(list_of_events)
         email_with_html = MIMEText(html_email.format(events), "html")
 
-        message = add_report_as_attachment(message, list_of_events)
+        message = self.add_report_as_attachment(message, list_of_events)
 
         message.attach(plain_email)
         message.attach(email_with_html)
