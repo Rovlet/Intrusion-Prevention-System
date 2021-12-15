@@ -1,0 +1,5 @@
+alert icmp any any -> any any (msg:"Pinging";sid:1000004;)
+alert tcp any any -> any 22 (msg:"Nmap XMAS Tree Scan"; flags:FPU; sid:1000006; rev:1;)
+alert tcp any any -> any 22 (msg:"Possible SSH brute forcing"; flags: S+; threshold: type both, track by_src, count 5, seconds 30; sid:10000001; rev: 1;)
+alert tcp any any -> any 22 (msg:"Nmap FIN Scan"; flags:F; sid:1000008; rev:1;)
+alert tcp any any -> any 21 (msg:"FTP Potential Brute Force Attack"; flow:to_server,established;content:"530 ";depth:4;pcre:"/530\s+(Login|User|Failed|Not|Logged|In)/smi";content:"Administrator"; nocase;threshold:type threshold, track by_src, count 3,seconds 60; classtype:suspicious-login; sid:3000002;)

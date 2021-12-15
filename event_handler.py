@@ -30,7 +30,11 @@ class SimpleSwitchSnort(app_manager.RyuApp):
         self.alerts = alerts.HandleAlerts()
         self.mac_to_port = {}
         self.hostile_network_events = {
-            "Pinging...": False
+            "Pinging": False,
+            "Nmap XMAS Tree Scan": True,
+            "Possible SSH brute forcing": False,
+            "Nmap FIN Scan": False,
+            "FTP Potential Brute Force Attack": False,
         }
 
         socket_config = {'unixsock': True}
