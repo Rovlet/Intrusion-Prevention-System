@@ -1,6 +1,3 @@
-# Alerts from snort/suricata
-ALERT_FILE = 'alert'
-
 # Send email to
 ADMIN_EMAIL = ''
 

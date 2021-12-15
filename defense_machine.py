@@ -10,7 +10,7 @@ class DefenseMachine:
     def block_address(self, source_ip):
         if source_ip in self.blocked_addresses:
             return 0
-        p = subprocess.Popen(["iptables", "-t", "filter", "-A", "OUTPUT", "-d", "{}".format(source_ip), "-m", "comment", "--comment", "{}".format(time()), "-j", "DROP"],
+        p = subprocess.Popen(["iptables", "-t", "filter", "-A", "INPUT", "-d", "{}".format(source_ip), "-m", "comment", "--comment", "{}".format(time()), "-j", "DROP"],
                               stdout=subprocess.PIPE)
         output, err = p.communicate()
         print("Address {} blocked".format(source_ip))
@@ -18,6 +18,8 @@ class DefenseMachine:
         return source_ip
 
     def block_address_after_number_of_attempts(self, source_ip):
+        if source_ip in self.blocked_addresses.append(source_ip):
+            return
         now = time()
         self.att_count = [[a, b, c] for [a, b, c] in self.att_count if now-b < 60]
         for sublist in self.att_count:
@@ -26,9 +28,6 @@ class DefenseMachine:
                     return self.block_address(source_ip)
                 else:
                     sublist[2] += sublist[2]
-                    return 0
+                    return 
         self.att_count.append([source_ip, now, 1])
-        return 0
-
-    def delete_files(self):
-        pass
+        return
