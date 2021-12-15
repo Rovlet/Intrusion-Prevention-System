@@ -16,6 +16,7 @@ from ryu.lib import snortlib
 socket_config = {'unixsock': True}
 
 import alerts
+import settings
 
 
 class SimpleSwitchSnort(app_manager.RyuApp):
@@ -26,16 +27,10 @@ class SimpleSwitchSnort(app_manager.RyuApp):
         super(SimpleSwitchSnort, self).__init__(*args, **kwargs)
         self.snort = kwargs['snortlib']
         self.snort_port = 3
-        self.our_ip = "10.0.2.15"
+        self.our_ip = settings.MACHINE_IP
         self.alerts = alerts.HandleAlerts()
         self.mac_to_port = {}
-        self.hostile_network_events = {
-            "Pinging": False,
-            "Nmap XMAS Tree Scan": True,
-            "Possible SSH brute forcing": False,
-            "Nmap FIN Scan": False,
-            "FTP Potential Brute Force Attack": False,
-        }
+        self.hostile_network_events = settings.HOSTILE_NETWORK_EVENTS
 
         socket_config = {'unixsock': True}
 

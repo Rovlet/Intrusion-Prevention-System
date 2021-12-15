@@ -1,67 +1,67 @@
-# PyIPS
+# Intrusion Prevention System v2.0
 
-Intrusion prevention system based on snort alerts.
+Intrusion prevention system connected with Snort by the Ryu app. 
+This app is only working in the Linux environment with running Snort.
 
 ## How does it work?
-
-Our application is still under development. For now, it can read snort alerts in the prepared file and is able to make defined actions based on snort alert's sid number. 
-Defined actions are:
-
-- block the source IP address
-- block the source IP address after 5 alerts within 2 minutes
-- do nothing with the alert
-
-When the app is being closed, it sends an email to the admin with information about every blocked IP during the day, it also checks iptables file for duplicates and too old rules.
-
-### TODO
-
-- [x] Check if the app is working well using the snort simulation script.
-- [x] Check if the app is working well using virtual machines and generate real attacks.
-- [ ] Make errors handlers with exceptions.
-- [ ] Change snort output and app input to not use the same file.
-
-
-### Prerequisites
-
-To run this program, you need linux, snort, iptables, and python3 with watchdog module.
-
-1. Install all needed packages
-    ```
-    sudo apt-get install snort
-    sudo apt-get install python3
-    pip3 install watchdog
-    ```
-
-2. Configure snort to run on your interface and in your network. You can do this in the initialization scripts or by change settings.
-3. Change settings.py file:
-Path to snort/suricata file
+When Snort will find something in our network that may be hostile, 
+it sends all alerts to the Ryu app which is our Intrusion Prevention System. 
+If the IPS detects any alerts messages defined in the settings file:
 ```
-    ALERT_FILE = ''
-```
-If you want to send an email to the admin with program results, you can set receiver and sender data here:
-```    
-    # Send email to
-    ADMIN_EMAIL = ''
-    
-    # Send email from
-    IPS_EMAIL = ''
-    IPS_EMAIL_PASSWORD = ''
-    
-    # Send email from this port
-    APPLICATION_PORT = 465
+HOSTILE_NETWORK_EVENTS = {
+    "Pinging": False,
+    "Nmap XMAS Tree Scan": True,
+    "Possible SSH brute forcing": False,
+    "Nmap FIN Scan": False,
+    "FTP Potential Brute Force Attack": False,
+}
 ```
 
-You can specify the filename to store temporary iptables rules. This setting is necessary if you want to delete old rules automatically. 
+it will decide to block the host immediately (True), or to count the packet and if it is above a threshold (False), it will block the host.
+For some hostile traffic, we can define the threshold of packets to block the host.
+
+We can also enable email notifications to be sent to the administrator by the App. 
+To do this, we need to change the below configuration in the file settings.py:
 ```
-    # File to store new rules
-    IPTABLES_FILE = 'iptables'
+ADMIN_EMAIL = ''
+IPS_EMAIL = ''
+IPS_EMAIL_PASSWORD = ''
+APPLICATION_PORT =''
 ```
-After you set this time, the app will check and delete old firewall rules after this time.
+When the configuration is set, the application will be sending information about the detected hostile traffic after a defined time.
+It will also include a report about the blocked hosts.
+
+### How to start
+
+To run this program, you need to have Linux, Python3, Ryu, Snort, and Iptables installed.
 ```
-    # After this time, some periodic actions will occur
-    PERIODIC_ACTION_TIME = 60
-    
+sudo apt-get snort
 ```
+Make sure you set the right interface and network when Snort was being installed.
+If Snort is working fine, you should be able to write this command without any error:
+```
+snort - i <your interface> -A unsock -l /tmp -c /etc/snort/snort.conf
+```
+
+Then, you need to install other dependencies:
+```
+sudo apt install python3 python3-pip ryu iptables
+sudo apt install gcc python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev
+```
+
+Every .py file in this repository needs to be installed with Ryu, otherwise, imports will not work.
+To add every file to Ryu, you need to run this command:
+```
+sudo ryu-manager --app-lists *.py
+```
+You need to start with these files, which don't have any relative imports, otherwise, you will get an error. For example, defense_machine.py doesn't have any relative imports, so you can start with that file.
+
+After that, you can start the application by running the event_handler app:
+```
+sudo ryu-manager event_handler.py
+```
+Also, make sure that Snort is running, otherwise, the app won't get any alerts.
+
 ## Team
 
 > Our Contributors

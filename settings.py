@@ -1,3 +1,6 @@
+# Machine IP
+MACHINE_IP = ''
+
 # Send email to
 ADMIN_EMAIL = ''
 
@@ -13,3 +16,11 @@ PERIODIC_ACTION_TIME = 60
 
 # Send email from this port
 APPLICATION_PORT = 465
+
+HOSTILE_NETWORK_EVENTS = {
+    "Pinging": False,
+    "Nmap XMAS Tree Scan": True,
+    "Possible SSH brute forcing": False,
+    "Nmap FIN Scan": False,
+    "FTP Potential Brute Force Attack": False,
+}
