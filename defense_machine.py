@@ -18,7 +18,7 @@ class DefenseMachine:
         return source_ip
 
     def block_address_after_number_of_attempts(self, source_ip):
-        if source_ip in self.blocked_addresses.append(source_ip):
+        if source_ip in self.blocked_addresses:
             return
         now = time()
         self.att_count = [[a, b, c] for [a, b, c] in self.att_count if now-b < 60]
